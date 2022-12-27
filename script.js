@@ -1,17 +1,5 @@
 'use strict';
 
-function gameStatus(status, score) {
-  if (score > 1) {
-    document.querySelector('.message').textContent = `Too ${status}!👆`;
-    score--;
-    document.querySelector('.score').textContent = score;
-  } else {
-    document.querySelector('.message').textContent = 'You lost the game💥';
-    score = 0;
-    document.querySelector('.score').textContent = score;
-  }
-}
-
 let number = Math.trunc(Math.random() * 20) + 1;
 // document.querySelector('.number').textContent = number;
 
@@ -33,10 +21,17 @@ document.querySelector('.check').addEventListener('click', function () {
       highscore = score;
       document.querySelector('.highscore').textContent = highscore;
     }
-  } else if (guess > number) {
-    gameStatus('High', score);
-  } else {
-    gameStatus('Low', score);
+  } else if (guess !== number) {
+    if (score > 1) {
+      document.querySelector('.message').textContent =
+        guess > number ? 'Too High👆' : 'Too Low👇';
+      score--;
+      document.querySelector('.score').textContent = score;
+    } else {
+      document.querySelector('.message').textContent = 'You lost the game💥';
+      score = 0;
+      document.querySelector('.score').textContent = score;
+    }
   }
 });
 
